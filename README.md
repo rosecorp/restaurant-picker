@@ -1,1 +1,1 @@
-"# restaurant-picker"
+# restaurant-picker
