@@ -25,9 +25,8 @@ public class RestaurantPickerApp {
     private RestaurantPickerService restaurantPickerService;
 
     @RequestMapping("/")
-    @ResponseBody
-    public String home() {
-        return "Pick your restaurant! boom!!!! Go here to get instructions https://github.com/rosecorp/restaurant-picker";
+    public String welcome(Map<String, Object> model) {
+        return "welcome";
     }
 
     @RequestMapping("/restaurant/{name}/when/{then}/who/{me}")
