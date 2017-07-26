@@ -1,8 +1,9 @@
 server:
-  port: 8081
+  port: 8080
 logging:
   level:
     org.exampledriven: DEBUG
+
 ---
 spring:
     profiles: heroku
