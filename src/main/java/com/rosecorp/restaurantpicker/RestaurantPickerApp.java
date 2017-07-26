@@ -27,7 +27,7 @@ public class RestaurantPickerApp {
     @RequestMapping("/")
     @ResponseBody
     public String home() {
-        return "Pick your restaurant! boom!!!!";
+        return "Pick your restaurant! boom!!!! https://github.com/rosecorp/restaurant-picker";
     }
 
     @RequestMapping("/restaurant/{name}/when/{then}/who/{me}")
