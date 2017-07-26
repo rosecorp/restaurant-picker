@@ -1,1 +1,1 @@
-java $JAVA_OPTS -jar target/restaurant-picker-1.0-SNAPSHOT.jar --server.port=$PORT $JAR_OPTS
+web java -Dserver.port=$PORT $JAVA_OPTS -jar target/restaurant-picker-1.0-SNAPSHOT.jar
