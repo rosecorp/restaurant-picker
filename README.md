@@ -17,3 +17,7 @@ https://pick-a-restaurant.herokuapp.com/restaurant/votes
 **Most popular restaurant**
 
 https://pick-a-restaurant.herokuapp.com/restaurant/popular
+
+**Build and deploy to heroku**
+
+_mvn clean install -Pheroku_
