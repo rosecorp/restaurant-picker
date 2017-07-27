@@ -41,7 +41,6 @@
         </thead>
         <tbody>
         <tr th:each="popular, rowStat : *{popularList}">
-
             <td th:text="${rowStat.count}">1</td>
             <td th:text="${popular.name}">name</td>
             <td th:text="${popular.vote}">vote</td>
