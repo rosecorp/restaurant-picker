@@ -1,10 +1,12 @@
 package com.rosecorp.restaurantpicker.service;
 
+import com.rosecorp.restaurantpicker.model.MostPopular;
 import com.rosecorp.restaurantpicker.model.Picker;
-import com.rosecorp.restaurantpicker.model.Pickers;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -22,17 +24,19 @@ public class RestaurantPickerService {
         return store.get(key);
     }
 
-    public Pickers getAll() {
-        Pickers pickers = new Pickers();
-        pickers.setPickers(new ArrayList<>(store.values()));
-        return pickers;
+    public List<Picker> getAll() {
+        return new ArrayList<>(store.values());
     }
 
-    public Map<String, Long>  popular() {
+    public List<MostPopular> popular() {
         ArrayList<Picker> pickers = new ArrayList<>(store.values());
-        Map<String, Long> collect = pickers.stream().collect(Collectors.groupingBy(Picker::getName, Collectors.counting()));
+        Map<String, Long> popularMap = pickers.stream().collect(Collectors.groupingBy(Picker::getRestaurantName, Collectors.counting()));
+        List<MostPopular> popular = new ArrayList<>();
+        popularMap.forEach((k,v)-> popular.add(new MostPopular(k, v)));
 
-        return collect;
+        popular.sort(Comparator.comparing(MostPopular::getVote).reversed());
+
+        return popular;
     }
 
 }

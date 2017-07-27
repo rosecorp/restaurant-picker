@@ -1,41 +1,53 @@
 package com.rosecorp.restaurantpicker.model;
 
-import java.text.SimpleDateFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Picker {
 
-    String name, me;
-    Date then;
+    @Size(min = 4, max = 35)
+    private String restaurantName;
 
-    public Picker(String name, Date then, String me) {
-        this.name = name;
-        this.then = then;
-        this.me = me;
+    @Size(min = 1, max = 35)
+    private String personName;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateToGo;
+
+    public Picker() {
     }
 
-    public String getName() {
-        return name;
+    public Picker(String restaurantName, String personName, Date dateToGo) {
+        this.restaurantName = restaurantName;
+        this.personName = personName;
+        this.dateToGo = dateToGo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Date getDateToGo() {
+        return dateToGo;
     }
 
-    public String getThen() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.format(then).toString();
+    public void setDateToGo(Date dateToGo) {
+        this.dateToGo = dateToGo;
     }
 
-    public void setThen(Date then) {
-        this.then = then;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public String getMe() {
-        return me;
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
-    public void setMe(String me) {
-        this.me = me;
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 }

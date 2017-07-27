@@ -1,20 +1,23 @@
 package com.rosecorp.restaurantpicker;
 
+import com.rosecorp.restaurantpicker.model.MostPopular;
 import com.rosecorp.restaurantpicker.model.Picker;
-import com.rosecorp.restaurantpicker.model.Pickers;
 import com.rosecorp.restaurantpicker.service.RestaurantPickerService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 @Controller
 public class RestaurantPickerController {
@@ -25,36 +28,52 @@ public class RestaurantPickerController {
     @Resource
     private RestaurantPickerService restaurantPickerService;
 
-    @RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
-        model.put("message", this.message);
-        return "welcome";
+    @RequestMapping(value = "/popular", method = RequestMethod.GET)
+    public String popular(Model model) {
+
+        List<MostPopular> popularList = restaurantPickerService.popular();
+
+        model.addAttribute("popularList", popularList);
+
+        return "popular";
     }
 
-    @RequestMapping("/restaurant/{name}/when/{then}/who/{me}")
-    @ResponseBody
-    public void pickYourRestaurant(@PathVariable String name, @PathVariable String then, @PathVariable String me) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Picker picker) {
+        return "index";
+    }
 
-            Date thenDate = formatter.parse(then);
-            restaurantPickerService.store(me, new Picker(name, thenDate, me));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String picker(@Valid Picker picker, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "index";
         }
+        model.addAttribute("restaurantName", picker.getRestaurantName());
+        model.addAttribute("personName", picker.getPersonName());
+        model.addAttribute("dateToGo", picker.getDateToGo());
 
+        restaurantPickerService.store(picker.getPersonName(), picker);
+        List<MostPopular> popularList = restaurantPickerService.popular();
+
+        model.addAttribute("popularList", popularList);
+
+        return "popular";
     }
 
-    @RequestMapping(value = "/restaurant/votes", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Pickers view() {
-        return restaurantPickerService.getAll();
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String all(Model model) {
+        List<Picker> all = restaurantPickerService.getAll();
+        model.addAttribute("all", all);
+
+        return "all";
     }
 
-    @RequestMapping(value = "/restaurant/popular", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Map<String, Long> mostPopular() {
-        return restaurantPickerService.popular();
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        webDataBinder.registerCustomEditor(Date.class,new CustomDateEditor(dateFormat, false));
     }
+
+
+
 }

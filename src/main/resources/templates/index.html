@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pick a restaurant</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css" />
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Pick the restaurant</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/popular">Most popular</a></li>
+                <li><a href="/all">All results</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- /.container -->
+
+<div class="container">
+
+    <h3>Pick the restaurant</h3>
+    <form action="#" th:action="@{/}" th:object="${picker}" method="post">
+        <table>
+            <tr>
+                <td>Restaurant name:</td>
+                <td><input type="text" th:field="*{restaurantName}" /></td>
+                <td th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}">Put restaurant name</td>
+            </tr>
+            <tr>
+                <td>Person name:</td>
+                <td><input type="text" th:field="*{personName}" /></td>
+                <td th:if="${#fields.hasErrors('personName')}" th:errors="*{personName}">Put your name</td>
+            </tr>
+            <tr>
+                <td>Date to go:</td>
+                <td><input type="date" th:field="*{dateToGo}" /></td>
+                <td th:if="${#fields.hasErrors('dateToGo')}" th:errors="*{dateToGo}">put date you want to go</td>
+            </tr>
+            <tr>
+                <td><button type="submit">Pick it!</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script type="text/javascript"
+        src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
