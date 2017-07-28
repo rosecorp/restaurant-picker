@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Picker {
 
-    @Size(min = 4, max = 35)
+    @Size(min = 2, max = 35)
     private String restaurantName;
 
     @Size(min = 1, max = 35)
