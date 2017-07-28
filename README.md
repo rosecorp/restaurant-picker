@@ -2,22 +2,13 @@
 
 **Vote for restaurant**
 
-https://pick-a-restaurant.herokuapp.com/restaurant/{name}/when/{then}/who/{me}
-
-_name_ - name of restaurant
-
-_when_ - dd-MM-yyyy
-
-_who_ - you, me or Muji :)
-
-**All votes given**
-
-https://pick-a-restaurant.herokuapp.com/restaurant/votes
+https://pick-a-restaurant.herokuapp.com/ - pick the restaurant you like and vote.
 
 **Most popular restaurant**
 
-https://pick-a-restaurant.herokuapp.com/restaurant/popular
+https://pick-a-restaurant.herokuapp.com/popular - most popular restaurant.
 
-**Build and deploy to heroku**
 
-_mvn clean install -Pheroku_
+**All votes**
+
+https://pick-a-restaurant.herokuapp.com/all - All vote.
