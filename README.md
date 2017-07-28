@@ -1,4 +1,4 @@
-# restaurant-picker
+# restaurant-picker [![Build Status](https://travis-ci.org/rosecorp/restaurant-picker.svg?branch=master)](https://travis-ci.org/rosecorp/restaurant-picker)
 
 This is the showacase for heroku. You must have heroku account to be able to push it to heroku.
 
