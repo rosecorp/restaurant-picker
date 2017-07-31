@@ -23,7 +23,6 @@ import java.util.List;
 public class RestaurantPickerController {
 
     @Value("${welcome.message:test}")
-    private String message = "Hello World";
 
     @Resource
     private RestaurantPickerService restaurantPickerService;
